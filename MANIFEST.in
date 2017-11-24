@@ -1,0 +1,2 @@
+include versioneer.py
+include temporal_networks_ode/_version.py
