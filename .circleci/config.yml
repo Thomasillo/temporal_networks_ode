@@ -10,10 +10,10 @@ jobs:
            name: Install stuff
            command: |
 	     python3 -m venv my-venv
-	     source my-venv/bin/activate
-	     pip install -e .
-	     pip install -e .[tests]
+             source my-venv/bin/activate
+             pip install -e .
+             pip install -e .[tests]
         - run:
-	    name: Run Tests
-	    command: |
-	      pytest tests/unit_tests
+            name: Run Tests
+            command: |
+              pytest tests/unit_tests
