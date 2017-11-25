@@ -3,8 +3,17 @@ jobs:
    build:
      docker:
        - image: circleci/python:3.5
+     working_directory: ~/tno
      steps:
        - checkout
-       - run: pip install -e .
-       - run: pip install -e .[tests]
-       - run: pytest tests/unit_tests
+       - run:
+           name: Install stuff
+           command: |
+	     python3 -m venv my-venv
+	     source my-venv/bin/activate
+	     pip install -e .
+	     pip install -e .[tests]
+        - run:
+	    name: Run Tests
+	    command: |
+	      pytest tests/unit_tests
