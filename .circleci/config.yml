@@ -12,7 +12,5 @@ jobs:
              python3 -m venv my-venv
              source my-venv/bin/activate
              pip install -e .
-             pip install -e .[tests]
-       - run:
-           name: Run Tests
-           command: pytest tests/unit_tests
+             pip install -e .[test]
+             pytest tests/unit_tests
