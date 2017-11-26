@@ -13,4 +13,39 @@ jobs:
              source my-venv/bin/activate
              pip install -e .
              pip install -e .[test]
-             pytest tests/unit_tests
+   unit_tests:
+     docker:
+       - image: circleci/python:3.5
+     working_directory: ~/tno
+     steps:
+       - checkout
+       - run:
+           name: Unit tests
+           command: |
+             source my-venv/bin/activate
+             pytest tests/unit_tests --cov=temporal_networks_ode --cov-report=html
+             pytest temporal_networks_ode --doctest-module
+       - store_artifacts:
+           path: coverage.xml
+   flake8:
+     docker:
+       - image: circleci/python:3.5
+     working_directory: ~/tno
+     steps:
+       - checkout
+       - run:
+           name: flake8
+           command: |
+             source my-venv/bin/activate
+             pytest --flake8 temporal_networks_ode
+workflows:
+   version: 2
+   build_and_test:
+     jobs:
+       - build
+       - unit_tests:
+           requires:
+             - build
+       - flake8:
+           requires:
+             -build
