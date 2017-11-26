@@ -43,7 +43,7 @@ if __name__ == "__main__":
         install_requires=[],
         extras_require={
             'dev': ['autopep8'],
-            'test': ['pytest'],
+            'test': ['pytest', 'pytest-cov', 'pytest-flake8'],
             'doc': ['sphinx']
         },
         # If there are data files included in your packages that need to be
