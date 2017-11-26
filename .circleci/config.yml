@@ -13,12 +13,19 @@ jobs:
              source my-venv/bin/activate
              pip install -e .
              pip install -e .[test]
+             pip install -e .[doc]
+       - save_cache:
+           key: v0-repo-{{ .Environment.CIRCLE_SHA1 }}
+           paths:
+           - ~/tno
    unit_tests:
      docker:
        - image: circleci/python:3.5
      working_directory: ~/tno
      steps:
-       - checkout
+       - restore_cache:
+           keys:
+             - v0-repo-{{ .Environment.CIRCLE_SHA1 }}
        - run:
            name: Unit tests
            command: |
@@ -32,7 +39,9 @@ jobs:
        - image: circleci/python:3.5
      working_directory: ~/tno
      steps:
-       - checkout
+       - restore_cache:
+           keys:
+             - v0-repo-{{ .Environment.CIRCLE_SHA1 }}
        - run:
            name: flake8
            command: |
